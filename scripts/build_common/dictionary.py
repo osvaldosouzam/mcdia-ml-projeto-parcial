@@ -20,10 +20,19 @@ HEADERS = [
     "Observações",
 ]
 
-SHEETS = (
-    ("Base consolidada", "DicionarioBaseConsolidada"),
-    ("Variáveis analíticas", "DicionarioVariaveisAnaliticas"),
+ALLOWED_DATA_TYPES = frozenset(
+    {
+        "Numérico (inteiro)",
+        "Numérico (contínuo)",
+        "Categórico (nominal)",
+        "Categórico (ordinal)",
+        "Texto",
+        "Data",
+    }
 )
+
+SHEET_NAME = "Dicionário de dados"
+TABLE_NAME = "DicionarioDeDados"
 
 
 class DictionarySourceError(ValueError):
@@ -54,6 +63,13 @@ def read_dictionary_source(path: Path) -> list[dict[str, str]]:
             if not normalized["Descrição / Significado"]:
                 raise DictionarySourceError(
                     f"Descrição ausente em {path}:{line_number} para a variável {variable}"
+                )
+            data_type = normalized["Tipo de Dado"]
+            if data_type not in ALLOWED_DATA_TYPES:
+                expected = ", ".join(sorted(ALLOWED_DATA_TYPES))
+                raise DictionarySourceError(
+                    f"Tipo de dado inválido em {path}:{line_number} para a variável {variable}: "
+                    f"{data_type!r}. Tipos permitidos: {expected}."
                 )
             seen.add(variable)
             rows.append(normalized)
@@ -121,50 +137,54 @@ def _style_sheet(sheet, rows: list[dict[str, str]], table_name: str) -> None:
     sheet.add_table(table)
 
 
-def build_dictionary(raw_source: Path, derived_source: Path, output: Path) -> Path:
-    source_rows = (
-        read_dictionary_source(raw_source),
-        read_dictionary_source(derived_source),
-    )
+def build_dictionary(raw_source: Path, output: Path) -> Path:
+    rows = read_dictionary_source(raw_source)
     workbook = Workbook()
     workbook.remove(workbook.active)
     workbook.properties.title = "Dicionário de dados do projeto de atrasos de voos"
-    workbook.properties.subject = "Base consolidada e variáveis analíticas"
+    workbook.properties.subject = "Variáveis da base consolidada entregue"
     workbook.properties.creator = "Grupo da disciplina de Introdução ao Machine Learning"
 
-    for (sheet_name, table_name), rows in zip(SHEETS, source_rows, strict=True):
-        sheet = workbook.create_sheet(sheet_name)
-        sheet.append(HEADERS)
-        for row in rows:
-            sheet.append([row[header] for header in HEADERS])
-        _style_sheet(sheet, rows, table_name)
+    sheet = workbook.create_sheet(SHEET_NAME)
+    sheet.append(HEADERS)
+    for row in rows:
+        sheet.append([row[header] for header in HEADERS])
+    _style_sheet(sheet, rows, TABLE_NAME)
 
     output.parent.mkdir(parents=True, exist_ok=True)
     workbook.save(output)
     return output
 
 
-def validate_dictionary(output: Path, expected_counts: tuple[int, int]) -> None:
+def validate_dictionary(output: Path, expected_count: int) -> None:
     if not output.is_file() or output.stat().st_size == 0:
         raise DictionarySourceError(f"Dicionário não foi gerado: {output}")
     workbook = load_workbook(output, read_only=False, data_only=False)
-    expected_sheets = [name for name, _ in SHEETS]
+    expected_sheets = [SHEET_NAME]
     if workbook.sheetnames != expected_sheets:
         raise DictionarySourceError(
             f"Abas inválidas. Esperado: {expected_sheets}. Recebido: {workbook.sheetnames}."
         )
-    for sheet_name, expected_count in zip(expected_sheets, expected_counts, strict=True):
-        sheet = workbook[sheet_name]
-        headers = [sheet.cell(1, column).value for column in range(1, 8)]
-        if headers != HEADERS:
-            raise DictionarySourceError(f"Cabeçalho inválido na aba {sheet_name}: {headers}")
-        if sheet.max_row != expected_count + 1:
-            raise DictionarySourceError(
-                f"Quantidade de linhas inválida em {sheet_name}: {sheet.max_row - 1}"
-            )
-        if sheet.freeze_panes != "A2":
-            raise DictionarySourceError(f"Cabeçalho não congelado na aba {sheet_name}")
-        if sheet.auto_filter.ref != f"A1:G{expected_count + 1}":
-            raise DictionarySourceError(f"Autofiltro inválido na aba {sheet_name}")
-        if len(sheet.tables) != 1:
-            raise DictionarySourceError(f"Tabela estruturada ausente na aba {sheet_name}")
+    sheet = workbook[SHEET_NAME]
+    headers = [sheet.cell(1, column).value for column in range(1, 8)]
+    if headers != HEADERS:
+        raise DictionarySourceError(f"Cabeçalho inválido na aba {SHEET_NAME}: {headers}")
+    if sheet.max_row != expected_count + 1:
+        raise DictionarySourceError(
+            f"Quantidade de linhas inválida em {SHEET_NAME}: {sheet.max_row - 1}"
+        )
+    if sheet.freeze_panes != "A2":
+        raise DictionarySourceError(f"Cabeçalho não congelado na aba {SHEET_NAME}")
+    if sheet.auto_filter.ref != f"A1:G{expected_count + 1}":
+        raise DictionarySourceError(f"Autofiltro inválido na aba {SHEET_NAME}")
+    if len(sheet.tables) != 1:
+        raise DictionarySourceError(f"Tabela estruturada ausente na aba {SHEET_NAME}")
+    invalid_types = {
+        sheet.cell(row, 3).value
+        for row in range(2, sheet.max_row + 1)
+        if sheet.cell(row, 3).value not in ALLOWED_DATA_TYPES
+    }
+    if invalid_types:
+        raise DictionarySourceError(
+            f"Tipos de dado inválidos na aba {SHEET_NAME}: {sorted(invalid_types, key=str)}"
+        )

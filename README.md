@@ -57,10 +57,11 @@ A primeira avaliação entrega:
 - base consolidada;
 - relatório parcial em Word.
 
-As fontes do relatório são mantidas em Markdown. O dicionário é mantido em dois CSVs:
+As fontes do relatório são mantidas em Markdown. A fonte do dicionário entregue é:
 
-- `sources/dicionario/base_consolidada.csv` documenta as 25 colunas exatas da base entregue;
-- `sources/dicionario/variaveis_analiticas.csv` documenta as 20 variáveis selecionadas ou produzidas pelo notebook.
+- `sources/dicionario/base_consolidada.csv` documenta as 25 colunas exatas da base entregue.
+
+O arquivo `sources/dicionario/variaveis_analiticas.csv` documenta internamente as 20 variáveis selecionadas ou produzidas pelo notebook. Ele apoia a evolução da análise e a Avaliação 2, mas não gera uma segunda aba no Excel entregue.
 
 O termo “base consolidada” é intencional: o arquivo reúne campos provenientes da fonte e campos produzidos na consolidação, portanto não equivale a um arquivo mensal bruto e intocado da ANAC.
 
@@ -152,8 +153,8 @@ target/avaliacao_01/
 
 O build:
 
-1. valida as fontes CSV do dicionário;
-2. gera e formata as duas abas do Excel;
+1. valida as fontes CSV de documentação;
+2. gera e formata a aba única `Dicionário de dados` do Excel;
 3. resolve as inclusões Markdown do relatório;
 4. gera o Word com o template institucional;
 5. cria uma cópia limpa do notebook, sem outputs ou contagens de execução;
@@ -200,14 +201,13 @@ O build remove outputs e contagens de execução somente da cópia em `target/`;
 
 #### Dicionário de dados em Excel
 
-Edite os CSVs que representam as duas abas do arquivo:
+Edite a fonte da aba entregue:
 
 ```text
 sources/dicionario/base_consolidada.csv
-sources/dicionario/variaveis_analiticas.csv
 ```
 
-O primeiro documenta as colunas do CSV consolidado. O segundo documenta o conjunto de variáveis usado ou produzido pela análise. Depois da alteração, execute:
+Esse arquivo documenta as 25 colunas exatas do CSV consolidado. As variáveis derivadas continuam documentadas em `sources/dicionario/variaveis_analiticas.csv` para uso interno, mas devem ser explicadas no notebook junto do código que as cria. Depois da alteração, execute:
 
 ```bash
 python scripts/build_avaliacao_01.py
@@ -219,7 +219,7 @@ Arquivo gerado:
 target/avaliacao_01/dicionario_lucimar_oliveira_do_nascimento.xlsx
 ```
 
-Abra o arquivo gerado no Microsoft Excel ou LibreOffice Calc e confira as duas abas. Em Linux, se o LibreOffice estiver instalado, ele pode ser aberto pela linha de comando:
+Abra o arquivo gerado no Microsoft Excel ou LibreOffice Calc e confira a aba única `Dicionário de dados`. Em Linux, se o LibreOffice estiver instalado, ele pode ser aberto pela linha de comando:
 
 ```bash
 libreoffice target/avaliacao_01/dicionario_lucimar_oliveira_do_nascimento.xlsx
@@ -405,7 +405,7 @@ python -m unittest discover -s tests -v
 
 As validações automatizadas não substituem a revisão visual. Antes da submissão:
 
-1. abra as duas abas do Excel e verifique textos, larguras e quebras;
+1. abra a aba `Dicionário de dados` do Excel e verifique textos, larguras e quebras;
 2. renderize ou abra o Word e confira todas as páginas;
 3. execute o notebook com kernel reiniciado em um ambiente limpo;
 4. confirme que o pacote contém somente os quatro arquivos esperados.
