@@ -14,6 +14,6 @@
 
 **ENTREGA PARA A PROFESSORA:** 28/09/2026
 
-**Título:** Classificação de faixas de atraso na partida de voos com dados da ANAC
+**Título:**  Exploração de dados públicos da Agência Nacional de Aviação Civil (ANAC) para investigar e prever, com antecedência definida, atrasos e cancelamentos de voos regulares
 
-**Nome dos alunos:** Francisco Fonseca; Lucimar Oliveira do Nascimento; Osvaldo Souza.
+**Nome dos alunos:** Francisco Alberto Fonseca Neto; Lucimar Oliveira do Nascimento; Osvaldo Souza Menezes Júnior Menezes Júnior.

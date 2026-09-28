@@ -4,9 +4,9 @@ Este repositório reúne os entregáveis das Avaliações 1 e 2 da disciplina de
 
 ## Integrantes
 
-- Francisco Fonseca
+- Francisco Alberto Fonseca Neto
 - Lucimar Oliveira do Nascimento
-- Osvaldo Souza
+- Osvaldo Souza Menezes Júnior
 
 Lucimar Oliveira do Nascimento é a representante usada na padronização dos nomes dos entregáveis.
 
