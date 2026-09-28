@@ -15,5 +15,3 @@ Para a Atividade 1, estabelecem-se os seguintes objetivos:
 - Descrever o atraso na partida por medidas de posição, dispersão, frequências e gráficos, examinando o desequilíbrio entre classes.
 
 - Auditar dados ausentes, exclusões e valores temporais extremos, documentando as limitações que podem afetar a análise.
-
-Para a Atividade 2, prevê-se comparar classificadores com uma referência simples de classe majoritária, organizar treino, validação e teste em ordem temporal e avaliar o desempenho por classe. A seleção de algoritmos e de codificações categóricas será realizada nessa etapa, com base nos resultados de validação. Esta entrega parcial não apresenta modelos treinados nem conclusões sobre desempenho preditivo.
