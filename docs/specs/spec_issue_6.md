@@ -666,7 +666,7 @@ O notebook produzido em `target/` deve ter todos os outputs vazios e `execution_
 
 ### CA-14 — Repositório limpo
 
-Não versionar ambiente virtual, caches, checkpoints, outputs de `target/`, notebook executado ou cópia extraída da base.
+Versionar em `target/` apenas o notebook limpo, o dicionário XLSX e o relatório DOCX que representam o snapshot da entrega. Não versionar ambiente virtual, caches, checkpoints, ZIP duplicado da entrega, notebook executado, conteúdo de `target/validation/` ou cópia extraída da base.
 
 ### CA-15 — Avaliação 2 preservada
 

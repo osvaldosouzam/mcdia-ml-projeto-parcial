@@ -41,12 +41,12 @@ mcdia-ml-projeto-parcial/
 │   ├── validate_all.py                   # validação dos artefatos
 │   └── build_common/                     # geração e validação compartilhadas
 ├── tests/                                # testes das fontes e dos geradores
-└── target/                               # outputs locais, ignorados pelo Git
+└── target/                               # snapshots gerados; ZIP e validações locais são ignorados
     ├── avaliacao_01/
     └── avaliacao_02/
 ```
 
-Não edite arquivos dentro de `target/`. Eles são descartáveis e devem ser sempre regenerados a partir das fontes versionadas.
+Não edite arquivos dentro de `target/`. Eles devem ser sempre regenerados a partir das fontes versionadas. O notebook limpo, o dicionário XLSX e o relatório DOCX são versionados como snapshots da entrega; o ZIP copiado para a entrega e os arquivos locais de validação permanecem ignorados.
 
 ## Avaliação 1
 
@@ -168,7 +168,7 @@ Os quatro arquivos são sempre gerados em conjunto pelo mesmo comando:
 python scripts/build_avaliacao_01.py
 ```
 
-Esse comando recria `target/avaliacao_01/` desde o início. Portanto, não mantenha alterações manuais nesse diretório: elas serão descartadas no próximo build.
+Esse comando recria `target/avaliacao_01/` desde o início. Portanto, não mantenha alterações manuais nesse diretório: elas serão descartadas no próximo build. Depois de revisar o resultado, inclua no commit os três snapshots versionados — notebook, XLSX e DOCX — quando a alteração fizer parte de uma nova versão da entrega.
 
 #### Notebook de análise exploratória
 
@@ -434,14 +434,16 @@ O ZIP contém um único CSV consolidado. O build valida essa estrutura sem extra
 
 ## Preservação das entregas
 
-O diretório `target/` não é versionado. A versão efetivamente submetida deve ser preservada por um dos seguintes meios:
+Em `target/`, o notebook limpo, o dicionário XLSX e o relatório DOCX são versionados. A cópia renomeada da base em ZIP não é versionada porque duplica a base de `data/raw/`, e `target/validation/` permanece reservado a evidências locais de execução.
+
+A versão efetivamente submetida deve ser identificada por um dos seguintes meios:
 
 - tag Git, por exemplo `avaliacao-01-entrega`;
 - GitHub Release;
 - artefato de integração contínua;
 - pacote enviado à plataforma da disciplina.
 
-O conteúdo compartilhado pode evoluir após o feedback da primeira avaliação. A tag ou release permite recuperar exatamente a versão submetida sem duplicar a árvore do projeto.
+O conteúdo compartilhado pode evoluir após o feedback da primeira avaliação. A tag ou release permite recuperar exatamente os três snapshots versionados da entrega; a base correspondente continua disponível pelo arquivo versionado em `data/raw/`.
 
 ## Especificações
 

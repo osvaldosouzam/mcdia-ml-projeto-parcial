@@ -14,8 +14,10 @@ __pycache__/
 *.iml
 .vscode/
 
-# Artefatos gerados
-target/
+# Artefatos gerados que não devem ser versionados
+target/**/*.zip
+target/validation/
+target/legacy/
 
 # Base extraída localmente
 data/raw/*.csv
