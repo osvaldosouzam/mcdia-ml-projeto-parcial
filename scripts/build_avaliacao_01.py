@@ -15,8 +15,8 @@ def build() -> dict[str, object]:
     paths = EvaluationOnePaths()
     reset_output_dir(paths.output_dir, paths.root / "target")
     build_dictionary(
-        paths.raw_dictionary_source,
-        paths.derived_dictionary_source,
+        paths.base_dictionary_source,
+        paths.analytical_dictionary_source,
         paths.dictionary_output,
     )
     build_report(

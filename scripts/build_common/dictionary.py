@@ -21,8 +21,8 @@ HEADERS = [
 ]
 
 SHEETS = (
-    ("Base bruta", "DicionarioBaseBruta"),
-    ("Variáveis derivadas", "DicionarioVariaveisDerivadas"),
+    ("Base consolidada", "DicionarioBaseConsolidada"),
+    ("Variáveis analíticas", "DicionarioVariaveisAnaliticas"),
 )
 
 
@@ -129,7 +129,7 @@ def build_dictionary(raw_source: Path, derived_source: Path, output: Path) -> Pa
     workbook = Workbook()
     workbook.remove(workbook.active)
     workbook.properties.title = "Dicionário de dados do projeto de atrasos de voos"
-    workbook.properties.subject = "Base bruta e variáveis derivadas"
+    workbook.properties.subject = "Base consolidada e variáveis analíticas"
     workbook.properties.creator = "Grupo da disciplina de Introdução ao Machine Learning"
 
     for (sheet_name, table_name), rows in zip(SHEETS, source_rows, strict=True):

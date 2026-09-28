@@ -14,15 +14,16 @@ from build_common.dictionary import DictionarySourceError, read_dictionary_sourc
 
 class DictionarySourcesTest(unittest.TestCase):
     def test_expected_source_counts(self) -> None:
-        raw = read_dictionary_source(ROOT / "sources/dicionario/base_bruta.csv")
-        derived = read_dictionary_source(ROOT / "sources/dicionario/variaveis_derivadas.csv")
-        self.assertEqual(25, len(raw))
-        self.assertEqual(19, len(derived))
+        base = read_dictionary_source(ROOT / "sources/dicionario/base_consolidada.csv")
+        analytical = read_dictionary_source(ROOT / "sources/dicionario/variaveis_analiticas.csv")
+        self.assertEqual(25, len(base))
+        self.assertEqual(20, len(analytical))
+        self.assertIn("codigo_faixa_atraso", {row["Variável"] for row in analytical})
 
     def test_duplicate_variable_is_rejected(self) -> None:
         temporary = ROOT / "target/test_duplicate_dictionary.csv"
         temporary.parent.mkdir(parents=True, exist_ok=True)
-        source = (ROOT / "sources/dicionario/base_bruta.csv").read_text(encoding="utf-8")
+        source = (ROOT / "sources/dicionario/base_consolidada.csv").read_text(encoding="utf-8")
         lines = source.splitlines()
         temporary.write_text("\n".join([*lines, lines[1]]) + "\n", encoding="utf-8")
         try:

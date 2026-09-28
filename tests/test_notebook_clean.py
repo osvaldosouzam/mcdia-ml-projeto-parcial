@@ -18,6 +18,23 @@ from build_common.notebook import (  # noqa: E402
 
 
 class NotebookCleanTest(unittest.TestCase):
+    def test_project_notebook_is_clean_and_maps_consolidated_schema(self) -> None:
+        source = ROOT / "notebooks/avaliacao_01/lucimar_oliveira_do_nascimento.ipynb"
+        validate_clean_notebook(source)
+        notebook = json.loads(source.read_text(encoding="utf-8"))
+        content = "\n".join(
+            "".join(cell.get("source", [])) for cell in notebook["cells"]
+        )
+        for expected in (
+            "'companhia_icao': 'sg_empresa_icao'",
+            "'origem_icao': 'sg_icao_origem'",
+            "'destino_icao': 'sg_icao_destino'",
+            "base_lucimar_oliveira_do_nascimento.zip",
+            "codigo_faixa_atraso",
+        ):
+            self.assertIn(expected, content)
+        self.assertNotIn("copy=False", content)
+
     def test_prepare_removes_outputs_and_execution_counts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "source.ipynb"

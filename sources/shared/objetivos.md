@@ -1,17 +1,19 @@
 ## 2. Objetivos
 
-### 2.1 Objetivo Geral
+### 2.1 Objetivo geral
 
-Desenvolver, validar e comparar modelos preditivos baseados em algoritmos de aprendizado de máquina supervisionado para a classificação de faixas de atraso de voos comerciais regulares no Brasil, a partir dos microdados públicos da ANAC, gerando insumos analíticos para a governança regulatória e a mitigação de ineficiências na malha aeroviária nacional.
+Investigar a possibilidade de prever faixas de atraso na partida de voos registrados na base VRA/ANAC de 2024 e 2025, utilizando informações conhecidas antes da partida, e produzir uma análise reproduzível que possa apoiar o diagnóstico da pontualidade no setor aéreo.
 
-### 2.2 Objetivo Específicos
+### 2.2 Objetivos específicos
 
-Para alcançar o objetivo geral proposto, definem-se as seguintes metas específicas:
+Para a Atividade 1, estabelecem-se os seguintes objetivos:
 
-- **Executar a análise exploratória e descritiva dos microdados do VRA/ANAC:** mensurar medidas de posição, dispersão e assimetria do tempo de atraso, bem como mapear a distribuição de frequência entre as classes e investigar o desbalanceamento intrínseco aos atrasos aéreos graves;
+- Caracterizar a fonte, a unidade de observação, o período e as variáveis disponíveis, mantendo correspondência entre CSV, notebook e dicionário.
 
-- **Estruturar um pipeline robusto de auditoria, limpeza e pré-processamento de dados:** tratar inconsistências de calendário, isolar voos cancelados/desviados e aplicar técnicas de codificação categórica de alta cardinalidade (*Target **Encoding* com regularização para aeroportos e rotas) evitando vazamento de dados (*data **leakage*);
+- Definir e construir o alvo ordinal de seis faixas e o indicador binário complementar, com limites explícitos e verificáveis.
 
-- **Implementar e comparar modelos supervisionados de classificação ****multiclasse****:** treinar modelos baselines (regressão logística e classificadores dummy) e algoritmos avançados baseados em árvores e *gradient** **boosting* (HistGradientBoosting, Random Forest), avaliando-os por meio de métricas resilientes ao desbalanceamento, tais como Balanced Accuracy, F1-Score Macro e Matriz de Confusão;
+- Descrever o atraso na partida por medidas de posição, dispersão, frequências e gráficos, examinando o desequilíbrio entre classes.
 
-- **Avaliar a capacidade de generalização temporal:** submeter a arquitetura analítica à validação temporal progressiva (treinamento na série histórica e teste em períodos subsequentes), assegurando aderência à realidade estocástica e operacional da malha aérea brasileira.
+- Auditar dados ausentes, exclusões e valores temporais extremos, documentando as limitações que podem afetar a análise.
+
+Para a Atividade 2, prevê-se comparar classificadores com uma referência simples de classe majoritária, organizar treino, validação e teste em ordem temporal e avaliar o desempenho por classe. A seleção de algoritmos e de codificações categóricas será realizada nessa etapa, com base nos resultados de validação. Esta entrega parcial não apresenta modelos treinados nem conclusões sobre desempenho preditivo.

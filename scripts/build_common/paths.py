@@ -12,12 +12,12 @@ class EvaluationOnePaths:
     root: Path = PROJECT_ROOT
 
     @property
-    def raw_dictionary_source(self) -> Path:
-        return self.root / "sources/dicionario/base_bruta.csv"
+    def base_dictionary_source(self) -> Path:
+        return self.root / "sources/dicionario/base_consolidada.csv"
 
     @property
-    def derived_dictionary_source(self) -> Path:
-        return self.root / "sources/dicionario/variaveis_derivadas.csv"
+    def analytical_dictionary_source(self) -> Path:
+        return self.root / "sources/dicionario/variaveis_analiticas.csv"
 
     @property
     def report_source(self) -> Path:
@@ -29,7 +29,7 @@ class EvaluationOnePaths:
 
     @property
     def notebook_source(self) -> Path:
-        return self.root / "notebooks/avaliacao_01/lucimar_nascimento.ipynb"
+        return self.root / "notebooks/avaliacao_01/lucimar_oliveira_do_nascimento.ipynb"
 
     @property
     def data_source(self) -> Path:
@@ -41,19 +41,19 @@ class EvaluationOnePaths:
 
     @property
     def dictionary_output(self) -> Path:
-        return self.output_dir / "dicionario_lucimar_nascimento.xlsx"
+        return self.output_dir / "dicionario_lucimar_oliveira_do_nascimento.xlsx"
 
     @property
     def report_output(self) -> Path:
-        return self.output_dir / "relatorio_parcial_lucimar_nascimento.docx"
+        return self.output_dir / "relatorio_parcial_lucimar_oliveira_do_nascimento.docx"
 
     @property
     def notebook_output(self) -> Path:
-        return self.output_dir / "lucimar_nascimento.ipynb"
+        return self.output_dir / "lucimar_oliveira_do_nascimento.ipynb"
 
     @property
     def data_output(self) -> Path:
-        return self.output_dir / "base_lucimar_nascimento.zip"
+        return self.output_dir / "base_lucimar_oliveira_do_nascimento.zip"
 
     @property
     def required_outputs(self) -> tuple[Path, ...]:
