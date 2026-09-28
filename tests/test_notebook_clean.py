@@ -35,6 +35,23 @@ class NotebookCleanTest(unittest.TestCase):
             self.assertIn(expected, content)
         self.assertNotIn("copy=False", content)
 
+    def test_project_notebook_is_split_into_small_didactic_units(self) -> None:
+        source = ROOT / "notebooks/avaliacao_01/lucimar_oliveira_do_nascimento.ipynb"
+        notebook = json.loads(source.read_text(encoding="utf-8"))
+        code_cells = [cell for cell in notebook["cells"] if cell["cell_type"] == "code"]
+        markdown_cells = [cell for cell in notebook["cells"] if cell["cell_type"] == "markdown"]
+        content = "\n".join("".join(cell.get("source", [])) for cell in notebook["cells"])
+
+        self.assertGreaterEqual(len(markdown_cells), len(code_cells))
+        self.assertLessEqual(
+            max(len("".join(cell["source"]).splitlines()) for cell in code_cells),
+            45,
+        )
+        self.assertNotIn("CÉLULA ", content.upper())
+        self.assertNotRegex(content, r"={8,}")
+        self.assertNotIn("warnings.filterwarnings", content)
+        self.assertNotIn("except Exception", content)
+
     def test_prepare_removes_outputs_and_execution_counts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "source.ipynb"

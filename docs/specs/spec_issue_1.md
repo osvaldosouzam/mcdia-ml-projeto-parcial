@@ -4,7 +4,7 @@
 
 Estruturar o projeto para que os conteúdos editáveis dos entregáveis sejam mantidos em formatos textuais adequados para revisão no Git e para que os arquivos finais exigidos pelas Avaliações 1 e 2 sejam produzidos por comandos automatizados, repetíveis e verificáveis.
 
-Esta issue deve estabelecer a infraestrutura de autoria e build antes das revisões de conteúdo da issue 3. O objetivo não é corrigir nesta etapa todo o conteúdo do notebook, do dicionário ou do relatório, mas criar uma fonte única de verdade e um fluxo seguro para que as correções seguintes sejam feitas nos arquivos-fonte certos.
+Esta issue deve estabelecer a infraestrutura de autoria e build antes das revisões de conteúdo da issue 6. O objetivo não é corrigir nesta etapa todo o conteúdo do notebook, do dicionário ou do relatório, mas criar uma fonte única de verdade e um fluxo seguro para que as correções seguintes sejam feitas nos arquivos-fonte certos.
 
 ## 2. Decisão arquitetural
 
@@ -63,7 +63,7 @@ Ambos devem reutilizar funções de uma biblioteca comum. Não deve haver duplic
 
 ### 3.2 Não incluído
 
-- corrigir todas as inconsistências de dados descritas na issue 3;
+- corrigir todas as inconsistências de dados descritas na issue 6;
 - reescrever integralmente o relatório;
 - selecionar os manuscritos acadêmicos definitivos;
 - implementar a modelagem da Avaliação 2;
@@ -80,7 +80,7 @@ Arquivos em `target/` nunca devem ser editados manualmente. Qualquer correção 
 
 ### 4.2 Binários gerados não são fonte
 
-DOCX e XLSX finais são produtos do build e não devem ser versionados após a migração e validação do novo fluxo.
+DOCX e XLSX finais são produtos do build e nunca devem ser editados diretamente. Por decisão posterior da issue 6, eles são versionados como snapshots revisáveis da entrega, sem substituir suas fontes Markdown e CSV.
 
 ### 4.3 Binários-fonte são permitidos
 
@@ -112,7 +112,7 @@ mcdia-ml-projeto-parcial/
 ├── docs/
 │   └── specs/
 │       ├── spec_issue_1.md
-│       └── sepc_issue_3.md
+│       └── spec_issue_6.md
 ├── notebooks/
 │   ├── avaliacao_01/
 │   │   └── lucimar_nascimento.ipynb
@@ -472,12 +472,14 @@ Devem ser versionados:
 - template institucional;
 - imagens e recursos necessários;
 - base compactada, enquanto essa for a decisão de armazenamento do projeto.
+- notebook limpo, dicionário XLSX e relatório DOCX gerados em `target/<avaliacao>/`, como snapshots da entrega.
 
 ### 14.2 Arquivos não versionados
 
 Devem ser ignorados:
 
-- `target/`;
+- ZIPs copiados ou renomeados dentro de `target/`;
+- `target/validation/` e notebooks executados usados apenas como evidência local;
 - `.idea/`;
 - `*.iml`;
 - `.ipynb_checkpoints/`;
@@ -714,7 +716,7 @@ Nenhum entregável gerado deve exigir edição manual posterior para atingir o e
 
 ### CA-13 — Git limpo
 
-`target/`, arquivos de IDE, caches, checkpoints e temporários não devem ser versionados.
+O notebook limpo, o XLSX e o DOCX finais devem ser versionados em `target/`. ZIPs duplicados, arquivos de IDE, caches, checkpoints, execuções de validação e temporários não devem ser versionados.
 
 ### CA-14 — Documentação suficiente
 
@@ -800,7 +802,7 @@ Os nomes definitivos devem ser confirmados contra o enunciado e eventuais orient
 
 ### 22.6 Preservação do histórico
 
-A remoção dos binários gerados do Git não elimina seu histórico. Deve-se evitar qualquer reescrita destrutiva de histórico nesta issue.
+A política posterior adotada na issue 6 mantém no Git os snapshots gerados do notebook limpo, do XLSX e do DOCX. O ZIP duplicado da entrega continua ignorado. Deve-se evitar qualquer reescrita destrutiva de histórico.
 
 ## 23. Definição de pronto
 
@@ -814,6 +816,6 @@ A issue estará concluída quando:
 - XLSX, DOCX e notebook passarem pelas validações definidas;
 - todas as páginas do Word e todas as abas do Excel tiverem sido inspecionadas;
 - o README documentar o processo completo;
-- `target/` e temporários estiverem ignorados;
-- os binários antigos tiverem sido preservados até a aprovação e removidos somente depois dela;
-- a issue 3 puder ser executada alterando fontes versionáveis em vez de editar outputs binários.
+- os três snapshots previstos em `target/` estiverem versionados e o ZIP duplicado, as validações locais e os temporários estiverem ignorados;
+- os snapshots atuais tiverem sido regenerados, revisados e incluídos no Git;
+- a issue 6 puder ser executada alterando fontes versionáveis em vez de editar outputs binários.
