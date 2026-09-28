@@ -7,7 +7,7 @@ from build_common.paths import PROJECT_ROOT
 
 
 REQUIRED_SOURCES = (
-    PROJECT_ROOT / "notebooks/avaliacao_02/lucimar_nascimento_atividade_2.ipynb",
+    PROJECT_ROOT / "notebooks/avaliacao_02/lucimar_oliveira_do_nascimento_atividade_2.ipynb",
     PROJECT_ROOT / "sources/avaliacao_02/metodologia.md",
     PROJECT_ROOT / "sources/avaliacao_02/resultados.md",
     PROJECT_ROOT / "sources/avaliacao_02/discussao.md",

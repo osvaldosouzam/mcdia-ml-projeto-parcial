@@ -172,6 +172,9 @@ def build_report(source: Path, template: Path, output: Path, sources_root: Path)
                 paragraph.paragraph_format.line_spacing = 1.15
                 paragraph.paragraph_format.space_after = Pt(6)
             elif current_section == "4. Referências":
+                # URLs e identificadores longos produzem espaçamentos excessivos
+                # quando referências bibliográficas são justificadas.
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
                 paragraph.paragraph_format.left_indent = Inches(0.4)
                 paragraph.paragraph_format.first_line_indent = Inches(-0.4)
                 paragraph.paragraph_format.line_spacing = 1.0

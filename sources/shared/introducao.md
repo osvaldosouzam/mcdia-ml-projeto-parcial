@@ -1,23 +1,25 @@
 ## 1. Introdução
 
-A infraestrutura de transporte aéreo desempenha um papel fulcral no desenvolvimento socioeconômico e na integração territorial do Brasil. No entanto, a pontualidade operacional dos voos comerciais regulares representa um dos principais desafios regulatórios e logísticos enfrentados pela administração pública setorial. Atrasos sistemáticos e não programados impõem severos custos de transação à economia nacional, geram ineficiências na alocação de slots em aeroportos saturados e acarretam prejuízos econômicos e desassistência aos usuários dos serviços de transporte público aéreo. Nesse cenário, o monitoramento preventivo e a capacidade preditiva estatal configuram instrumentos indispensáveis para aprimorar a fiscalização contratual e a formulação de intervenções regulatórias informadas por evidências.
+A pontualidade do transporte aéreo interessa aos passageiros, às empresas e à administração pública responsável pelo acompanhamento do setor. A análise de registros de voos pode apoiar o diagnóstico de padrões de atraso e a identificação de limitações dos dados utilizados nesse monitoramento. Neste projeto acadêmico, pretende-se estudar a possibilidade de classificação antecipada do atraso na partida, sem pressupor que uma previsão permita identificar suas causas ou, por si só, orientar uma intervenção regulatória.
 
-Com a finalidade de mitigar essas falhas de coordenação e estruturar subsídios empíricos para a atuação regulatória, este projeto utiliza o microdado público de voos disponibilizado pela **Agência Nacional de Aviação Civil (ANAC)**, especificamente a base do sistema de **Voo Regular Ativo (VRA)**. O objetivo precípuo da utilização dessa base é desenvolver um modelo preditivo capaz de estimar antecipadamente — no momento do planejamento e autorização operacional do voo — a probabilidade de ocorrência e a magnitude de atrasos na partida dos voos que integram a malha aérea nacional. A pergunta central que orienta esta pesquisa é: *quais fatores operacionais, temporais, geográficos e concorrenciais (como rota, aeroporto de origem/destino, empresa aérea, horário programado e dia da semana) exercem maior influência sobre a degradação da pontualidade dos voos comerciais no Brasil?*
+A fonte é o conjunto Voo Regular Ativo (VRA), disponibilizado pela Agência Nacional de Aviação Civil (ANAC, s.d.). O recorte adotado compreende 2024 e 2025 e utiliza o arquivo consolidado base_lucimar_nascimento_v2.csv. Esse arquivo é a entrada preservada do estudo e já reúne campos de origem e campos derivados; não deve ser confundido com cada arquivo mensal original da ANAC. A unidade observacional é o registro de uma etapa de voo. A base inclui registros de empresas e aeroportos estrangeiros, de modo que seu conteúdo não se restringe a voos domésticos.
 
-O problema de aprendizado supervisionado configura-se essencialmente como uma tarefa de classificação multiclasse/ordinal, admitindo como *benchmark* comparativo a formulação de classificação binária. A variável alvo principal (*target*) modelada é a faixa de atraso na partida (faixa_atraso_partida), uma variável categórica ordinal estruturada a partir do atraso líquido em minutos (atraso_partida_minutos), dividida em seis classes operacionais e regulatórias progressivas (FAIXAS de 0 a 5):
+A pergunta orientadora é: “**E****m que medida informações disponíveis antes da partida, como companhia aérea, aeroportos de origem e destino, rota e horário programado, permitem prever a faixa de atraso na partida dos voos realizados no recorte VRA/ANAC de 2024 e 2025?**” Nesta primeira atividade, o trabalho define o problema, examina a base e estabelece os cuidados necessários à etapa preditiva.
 
-- **Faixa 0 — Pontual ou antecipado:** voos com partida no horário exato programado ou adiantada (≤ 0 min);
+O alvo principal é codigo_faixa_atraso, uma variável categórica ordinal com seis classes. Sua descrição textual é faixa_atraso_partida. Ambas derivam de atraso_partida_minutos, calculado como a diferença, em minutos, entre partida real e partida prevista. Valores negativos representam antecipação. As faixas são escolhas analíticas do projeto, definidas da seguinte forma:
 
-- **Faixa 1 — Atraso inferior a 15 min:** voos com partida após o horário previsto, porém dentro da margem internacional de tolerância operacional da aviação civil (0 < atraso < 15 min);
+- 0 — Pontual ou antecipado: atraso menor ou igual a zero minuto.
 
-- **Faixa 2 — Atraso de 15 a 30 min:** atrasos iniciais acima do limiar de tolerância (15 ≤ atraso ≤ 30 min);
+- 1 — Atraso inferior a 15 minutos: atraso maior que zero e menor que 15 minutos.
 
-- **Faixa 3 — Atraso superior a 30 até 45 min:** atrasos moderados com potencial de impacto em conexões curtas (30 < atraso ≤ 45 min);
+- 2 — Atraso de 15 a 30 minutos: atraso maior ou igual a 15 e menor ou igual a 30 minutos.
 
-- **Faixa 4 — Atraso superior a 45 até 60 min:** atrasos intermediários próximos a uma hora (45 < atraso ≤ 60 min);
+- 3 — Atraso superior a 30 até 45 minutos: atraso maior que 30 e menor ou igual a 45 minutos.
 
-- **Faixa 5 — Atraso superior a 60 min:** atrasos severos e críticos (> 60 min), patamar a partir do qual se intensificam a degradação de *slots* na malha aérea e o escalonamento das obrigações regulatórias de assistência material previstas na Resolução ANAC nº 400.
+- 4 — Atraso superior a 45 até 60 minutos: atraso maior que 45 e menor ou igual a 60 minutos.
 
-Secundariamente, avalia-se a variável binária atraso_bi (1 para atrasos comerciais ≥ 15 minutos, englobando as faixas 2 a 5, e 0 para operações pontuais < 15 minutos, correspondentes às faixas 0 e 1).
+- 5 — Atraso superior a 60 minutos: atraso maior que 60 minutos.
 
-A presente entrega preliminar está estruturada em quatro seções: esta introdução, a formulação dos objetivos gerais e específicos da pesquisa, a fundamentação teórica que contextualiza a regulação setorial e as técnicas de aprendizado supervisionado adotadas, e as respectivas referências bibliográficas formatadas sob as normas da ABNT.
+O indicador secundário atraso_bi vale 1 quando o atraso é de pelo menos 15 minutos e 0 quando é inferior a 15 minutos, incluindo antecipações. Ele resume as faixas 2 a 5 e permite descrições complementares; o problema principal permanece a classificação em seis faixas. Os limites definidos aqui não são apresentados como categorias regulatórias nem como regra automática de assistência ao passageiro.
+
+A análise do alvo considera voos realizados com datas de partida utilizáveis. Cancelamentos e registros sem elementos necessários ao cálculo são contabilizados na auditoria de exclusões. O CSV de entrada permanece intacto, e as transformações são realizadas em memória pelo notebook. Valores extremos exigem inspeção dos registros e da origem das datas antes de qualquer exclusão adicional. O relatório organiza-se nesta introdução, nos objetivos, no referencial teórico e nas referências; as tabelas, os gráficos e a auditoria constam do notebook.

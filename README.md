@@ -5,10 +5,10 @@ Este repositório reúne os entregáveis das Avaliações 1 e 2 da disciplina de
 ## Integrantes
 
 - Francisco Fonseca
-- Lucimar Nascimento
+- Lucimar Oliveira do Nascimento
 - Osvaldo Souza
 
-Lucimar Nascimento é a representante usada na padronização dos nomes dos entregáveis.
+Lucimar Oliveira do Nascimento é a representante usada na padronização dos nomes dos entregáveis.
 
 ## Organização das avaliações
 
@@ -55,8 +55,10 @@ A primeira avaliação entrega:
 
 As fontes do relatório são mantidas em Markdown. O dicionário é mantido em dois CSVs:
 
-- `sources/dicionario/base_bruta.csv` documenta as colunas exatas da base entregue;
-- `sources/dicionario/variaveis_derivadas.csv` documenta as variáveis produzidas pelo notebook.
+- `sources/dicionario/base_consolidada.csv` documenta as 25 colunas exatas da base entregue;
+- `sources/dicionario/variaveis_analiticas.csv` documenta as 20 variáveis selecionadas ou produzidas pelo notebook.
+
+O termo “base consolidada” é intencional: o arquivo reúne campos provenientes da fonte e campos produzidos na consolidação, portanto não equivale a um arquivo mensal bruto e intocado da ANAC.
 
 O Word é gerado a partir do Markdown e de `templates/relatorio_institucional.docx`. O template preserva cabeçalho, rodapé, imagens, margens e identidade visual institucional.
 
@@ -109,10 +111,10 @@ Arquivos produzidos:
 
 ```text
 target/avaliacao_01/
-├── lucimar_nascimento.ipynb
-├── dicionario_lucimar_nascimento.xlsx
-├── base_lucimar_nascimento.zip
-└── relatorio_parcial_lucimar_nascimento.docx
+├── lucimar_oliveira_do_nascimento.ipynb
+├── dicionario_lucimar_oliveira_do_nascimento.xlsx
+├── base_lucimar_oliveira_do_nascimento.zip
+└── relatorio_parcial_lucimar_oliveira_do_nascimento.docx
 ```
 
 O build:
@@ -126,6 +128,8 @@ O build:
 7. valida a estrutura dos quatro entregáveis.
 
 O processo não executa o notebook completo automaticamente, pois essa etapa carrega aproximadamente dois milhões de registros e possui custo de memória e tempo distinto do build documental.
+
+O notebook aceita deterministicamente a base oficial em CSV ou ZIP. Ele valida as 25 colunas esperadas, preserva identificadores como texto, audita ausências e duplicidades, contabiliza exclusões, compara o atraso recalculado com o campo existente e interrompe a execução se o esquema não for compatível. O alvo principal permanece a faixa de atraso na partida; atraso na chegada é tratado como outro problema de pesquisa.
 
 ## Gerar a Avaliação 2
 
@@ -194,4 +198,5 @@ O conteúdo compartilhado pode evoluir após o feedback da primeira avaliação.
 ## Especificações
 
 - `docs/specs/spec_issue_1.md`: fontes versionáveis e geração dos entregáveis;
+- `docs/specs/spec_issue_2.md`: incorporação das correções propostas pelo Lucimar;
 - `docs/specs/sepc_issue_3.md`: revisão de conteúdo, qualidade dos dados e adequação completa da Avaliação 1.
