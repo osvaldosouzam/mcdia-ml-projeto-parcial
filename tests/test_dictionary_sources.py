@@ -3,6 +3,9 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+import zipfile
+import csv
+import io
 from pathlib import Path
 
 
@@ -19,6 +22,18 @@ class DictionarySourcesTest(unittest.TestCase):
         self.assertEqual(25, len(base))
         self.assertEqual(20, len(analytical))
         self.assertIn("codigo_faixa_atraso", {row["Variável"] for row in analytical})
+
+    def test_base_dictionary_matches_the_csv_header(self) -> None:
+        dictionary = read_dictionary_source(ROOT / "sources/dicionario/base_consolidada.csv")
+        dictionary_names = [row["Variável"] for row in dictionary]
+        archive_path = ROOT / "data/raw/base_lucimar_nascimento_v2.zip"
+        with zipfile.ZipFile(archive_path) as archive:
+            csv_names = [name for name in archive.namelist() if name.lower().endswith(".csv")]
+            self.assertEqual(["base_lucimar_nascimento_v2.csv"], csv_names)
+            with archive.open(csv_names[0]) as raw:
+                text = io.TextIOWrapper(raw, encoding="utf-8-sig", newline="")
+                csv_header = next(csv.reader(text))
+        self.assertEqual(csv_header, dictionary_names)
 
     def test_duplicate_variable_is_rejected(self) -> None:
         temporary = ROOT / "target/test_duplicate_dictionary.csv"

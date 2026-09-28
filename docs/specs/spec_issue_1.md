@@ -4,7 +4,7 @@
 
 Estruturar o projeto para que os conteúdos editáveis dos entregáveis sejam mantidos em formatos textuais adequados para revisão no Git e para que os arquivos finais exigidos pelas Avaliações 1 e 2 sejam produzidos por comandos automatizados, repetíveis e verificáveis.
 
-Esta issue deve estabelecer a infraestrutura de autoria e build antes das revisões de conteúdo da issue 3. O objetivo não é corrigir nesta etapa todo o conteúdo do notebook, do dicionário ou do relatório, mas criar uma fonte única de verdade e um fluxo seguro para que as correções seguintes sejam feitas nos arquivos-fonte certos.
+Esta issue deve estabelecer a infraestrutura de autoria e build antes das revisões de conteúdo da issue 6. O objetivo não é corrigir nesta etapa todo o conteúdo do notebook, do dicionário ou do relatório, mas criar uma fonte única de verdade e um fluxo seguro para que as correções seguintes sejam feitas nos arquivos-fonte certos.
 
 ## 2. Decisão arquitetural
 
@@ -63,7 +63,7 @@ Ambos devem reutilizar funções de uma biblioteca comum. Não deve haver duplic
 
 ### 3.2 Não incluído
 
-- corrigir todas as inconsistências de dados descritas na issue 3;
+- corrigir todas as inconsistências de dados descritas na issue 6;
 - reescrever integralmente o relatório;
 - selecionar os manuscritos acadêmicos definitivos;
 - implementar a modelagem da Avaliação 2;
@@ -112,7 +112,7 @@ mcdia-ml-projeto-parcial/
 ├── docs/
 │   └── specs/
 │       ├── spec_issue_1.md
-│       └── sepc_issue_3.md
+│       └── spec_issue_6.md
 ├── notebooks/
 │   ├── avaliacao_01/
 │   │   └── lucimar_nascimento.ipynb
@@ -816,4 +816,4 @@ A issue estará concluída quando:
 - o README documentar o processo completo;
 - `target/` e temporários estiverem ignorados;
 - os binários antigos tiverem sido preservados até a aprovação e removidos somente depois dela;
-- a issue 3 puder ser executada alterando fontes versionáveis em vez de editar outputs binários.
+- a issue 6 puder ser executada alterando fontes versionáveis em vez de editar outputs binários.
