@@ -1,0 +1,27 @@
+# Ambientes e caches Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Artefatos gerados
+target/
+
+# Base extraída localmente
+data/raw/*.csv
+
+# Temporários de escritório e sistema
+~$*.docx
+~$*.xlsx
+.DS_Store
+Thumbs.db

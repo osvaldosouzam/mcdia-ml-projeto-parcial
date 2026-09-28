@@ -1,0 +1,26 @@
+Avaliação 1: Projeto Parcial
+
+
+Disponível: 14 de Set de 2026 0:00 até 28 de Set de 2026 23:59Disponível: 14 de Set de 2026 0:00 até 28 de Set de 2026 23:59
+
+Como parte do processo de avaliação da disciplina, os alunos deverão elaborar um relatório no Python formato ipynb preliminar a partir da base de dados de sua escolha. O relatório deverá conter:
+
+Descrição do problema a ser resolvido, qual o problema de aprendizado supervisionado a ser modelado (regressão ou classificação) e qual a variável alvo (target) a ser modelada;
+Descrição da base de dados, incluindo a contextualização da fonte e o objetivo da sua utilização e o contextualizando o problema de pesquisa a ser modelado;
+Dicionário de dados, apresentando as variáveis, seus tipos, unidades de medida e significado (enviado a parte em formato Excel);
+Análises descritivas iniciais, abrangendo medidas de posição e dispersão, bem como a exploração gráfica das variáveis relevantes que serão utilizadas na modelagem;
+Discussão preliminar, destacando potenciais relações entre as variáveis e eventuais questões de qualidade dos dados (ausências, inconsistências, padronizações necessárias).
+Assim, deverão ser entregues 4 componentes: (i) O arquivo com os códigos implementados em Python no formato padrão do jupyter notebook (ipynb) de maneira organizada e comentada. Será disponibilizado um script de referência para padronização do arquivo Python, além disso o nome do script deve ser padronizado na seguinte forma: nome_completo_representante_grupo.ipynb. (ii) O dicionário no formato Excel seguindo a padronização do nome dicionario_nome_completo_representante_grupo.xlsx e deverá conter as seguintes colunas:
+
+Variável: nome como está na base (exato, respeitando letras maiúsculas/minúsculas).
+Nome Descritivo: nome explicativo em português.
+Tipo de Dado: opções padronizadas (ex.: Numérico (inteiro), Numérico (contínuo), Categórico (nominal), Categórico (ordinal), Texto, Data).
+Unidade de Medida: se aplicável (kg, cm, anos, %, moeda etc.).
+Domínio / Categoria: valores possíveis ou intervalos esperados (ex.: {0,1}, {M,F}, 0-100).
+Descrição / Significado: breve explicação sobre o que a variável mede.
+Observações: observações relevantes (ex.: “há dados ausentes”, “possíveis inconsistências”, “precisa ser padronizado”).
+(iii) A base de dados bruta em csv ou em Excel, onde o nome do arquivo deverá ser padronizado como base_nome_completo_representante_grupo.xlsx ou csv. Caso haja várias bases de dados, é imprescindível que agregue os dados da atividade de forma a enviar  uma única base de dados.
+
+(iv) Relatório parcial em word, contendo introdução, objetivos, referencial teórico e referências bibliográficas. O relatório deve conter entre 3 a 5 manuscritos acadêmicos que ofereçam uma justificativa para o tema escolhido. O relatório parcial deverá ser formatado com fonte times new roman, tamanho 12, alinhamento justificado. Será disponibilizado um template de acordo com as formatações citadas acima para auxiliar no processo de desenvolvimento do relatório.
+
+As entregas devem ser feitas com clareza e objetividade, demonstrando não apenas a organização e compreensão da base de dados, mas também a capacidade analítica inicial do discente.
